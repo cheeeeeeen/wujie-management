@@ -1,0 +1,16 @@
+com\ruoyi\wujie\domain\NCustomer.class
+com\ruoyi\wujie\mapper\NCustomerMapper.class
+com\ruoyi\wujie\service\NFileInfoService.class
+com\ruoyi\wujie\service\impl\NFileInfoServiceImpl.class
+com\ruoyi\wujie\service\impl\NContractServiceImpl.class
+com\ruoyi\wujie\mapper\NContractMapper.class
+com\ruoyi\wujie\service\NContractService.class
+com\ruoyi\wujie\domain\NFinance.class
+com\ruoyi\wujie\service\impl\NFinanceServiceImpl.class
+com\ruoyi\wujie\service\NFinanceService.class
+com\ruoyi\wujie\mapper\NFinanceMapper.class
+com\ruoyi\wujie\service\impl\NCustomerServiceImpl.class
+com\ruoyi\wujie\domain\NContract.class
+com\ruoyi\wujie\domain\NFileInfo.class
+com\ruoyi\wujie\mapper\NFileInfoMapper.class
+com\ruoyi\wujie\service\NCustomerService.class

@@ -1,0 +1,10 @@
+com\ruoyi\biz\domain\entity\FileInfo.class
+com\ruoyi\biz\domain\entity\Custom.class
+com\ruoyi\biz\service\FileInfoService.class
+com\ruoyi\biz\service\impl\CustomServiceImpl.class
+com\ruoyi\biz\domain\vo\FileInfoVo.class
+com\ruoyi\biz\mapper\CustomMapper.class
+com\ruoyi\biz\mapper\FileInfoMapper.class
+com\ruoyi\biz\domain\dto\FileInfoDto.class
+com\ruoyi\biz\service\CustomService.class
+com\ruoyi\biz\service\impl\FileInfoServiceImpl.class

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wujie.mapper.NCustomerMapper">
+    
+    <resultMap type="NCustomer" id="NCustomerResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="contractPhone"    column="contract_phone"    />
+        <result property="contractAddress"    column="contract_address"    />
+        <result property="type"    column="type"    />
+        <result property="bankUsername"    column="bank_username"    />
+        <result property="bankName"    column="bank_name"    />
+        <result property="bankAccount"    column="bank_account"    />
+        <result property="taxName"    column="tax_name"    />
+        <result property="taxNumber"    column="tax_number"    />
+        <result property="officePhone"    column="office_phone"    />
+        <result property="officeAddress"    column="office_address"    />
+        <result property="del"    column="del"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="idCardNum"    column="id_card_num"/>
+        <result property="contractPerson"    column="contract_person"/>
+    </resultMap>
+
+    <sql id="selectNCustomerVo">
+        select * from n_customer
+    </sql>
+
+    <select id="selectNCustomerList" parameterType="NCustomer" resultMap="NCustomerResult">
+        <include refid="selectNCustomerVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="contractPhone != null  and contractPhone != ''"> and contract_phone = #{contractPhone}</if>
+            <if test="contractAddress != null  and contractAddress != ''"> and contract_address = #{contractAddress}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="bankUsername != null  and bankUsername != ''"> and bank_username like concat('%', #{bankUsername}, '%')</if>
+            <if test="bankName != null  and bankName != ''"> and bank_name like concat('%', #{bankName}, '%')</if>
+            <if test="bankAccount != null  and bankAccount != ''"> and bank_account = #{bankAccount}</if>
+            <if test="taxName != null  and taxName != ''"> and tax_name like concat('%', #{taxName}, '%')</if>
+            <if test="taxNumber != null  and taxNumber != ''"> and tax_number = #{taxNumber}</if>
+            <if test="officePhone != null  and officePhone != ''"> and office_phone = #{officePhone}</if>
+            <if test="officeAddress != null  and officeAddress != ''"> and office_address = #{officeAddress}</if>
+            <if test="idCardNum != null and idCardNum != ''"> and id_card_num = #{idCardNum} </if>
+            <if test="contractPerson != null and contractPerson != ''"> and contract_person = #{contractPerson} </if>
+        </where>
+        order by id desc
+    </select>
+    
+    <select id="selectNCustomerById" parameterType="Long" resultMap="NCustomerResult">
+        <include refid="selectNCustomerVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertNCustomer" parameterType="NCustomer" useGeneratedKeys="true" keyProperty="id">
+        insert into n_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="contractPhone != null and contractPhone != ''">contract_phone,</if>
+            <if test="contractAddress != null">contract_address,</if>
+            <if test="type != null">type,</if>
+            <if test="bankUsername != null">bank_username,</if>
+            <if test="bankName != null">bank_name,</if>
+            <if test="bankAccount != null">bank_account,</if>
+            <if test="taxName != null">tax_name,</if>
+            <if test="taxNumber != null">tax_number,</if>
+            <if test="officePhone != null">office_phone,</if>
+            <if test="officeAddress != null">office_address,</if>
+            <if test="del != null">del,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="idCardNum != null and idCardNum != ''"> id_card_num, </if>
+            <if test="contractPerson != null and contractPerson != ''"> contract_person, </if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="contractPhone != null and contractPhone != ''">#{contractPhone},</if>
+            <if test="contractAddress != null">#{contractAddress},</if>
+            <if test="type != null">#{type},</if>
+            <if test="bankUsername != null">#{bankUsername},</if>
+            <if test="bankName != null">#{bankName},</if>
+            <if test="bankAccount != null">#{bankAccount},</if>
+            <if test="taxName != null">#{taxName},</if>
+            <if test="taxNumber != null">#{taxNumber},</if>
+            <if test="officePhone != null">#{officePhone},</if>
+            <if test="officeAddress != null">#{officeAddress},</if>
+            <if test="del != null">#{del},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="idCardNum != null and idCardNum != ''"> #{idCardNum},</if>
+            <if test="contractPerson != null and contractPerson != ''"> #{contractPerson},</if>
+         </trim>
+    </insert>
+
+    <update id="updateNCustomer" parameterType="NCustomer">
+        update n_customer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="contractPhone != null and contractPhone != ''">contract_phone = #{contractPhone},</if>
+            <if test="contractAddress != null">contract_address = #{contractAddress},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="bankUsername != null">bank_username = #{bankUsername},</if>
+            <if test="bankName != null">bank_name = #{bankName},</if>
+            <if test="bankAccount != null">bank_account = #{bankAccount},</if>
+            <if test="taxName != null">tax_name = #{taxName},</if>
+            <if test="taxNumber != null">tax_number = #{taxNumber},</if>
+            <if test="officePhone != null">office_phone = #{officePhone},</if>
+            <if test="officeAddress != null">office_address = #{officeAddress},</if>
+            <if test="del != null">del = #{del},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="idCardNum != null and idCardNum != ''"> id_card_num = #{idCardNum}, </if>
+            <if test="contractPerson != null and contractPerson != ''"> contract_person = #{contractPerson}, </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNCustomerById" parameterType="Long">
+        delete from n_customer where id = #{id}
+    </delete>
+
+    <delete id="deleteNCustomerByIds" parameterType="String">
+        delete from n_customer where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

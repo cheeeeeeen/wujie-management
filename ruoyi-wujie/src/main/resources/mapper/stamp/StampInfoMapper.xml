@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wujie.mapper.StampInfoMapper">
+
+    <resultMap type="StampInfo" id="StampInfoResult">
+        <result property="stampId"    column="stamp_id"    />
+        <result property="creator"    column="creator"    />
+        <result property="state"    column="state"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="del"    column="del"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="noticeCreaterId"    column="notice_creater_id"    />
+        <result property="noticeSealedById"    column="notice_sealed_by_id"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectStampInfoVo">
+        select stamp_id, creator, state, create_time, del, update_time, notice_creater_id, notice_sealed_by_id, remark from stamp_info nst
+    </sql>
+
+    <select id="selectStampInfoList" parameterType="StampInfo" resultMap="StampInfoResult">
+        <include refid="selectStampInfoVo"/>
+        <where>
+            <if test="creator != null  and creator != ''"> and nst.creator = #{creator}</if>
+            <if test="state != null  and state != ''"> and nst.state = #{state}</if>
+            <if test="del != null  and del != ''"> and nst.del = #{del}</if>
+            <if test="noticeCreaterId != null "> and nst.notice_creater_id = #{noticeCreaterId}</if>
+            <if test="noticeSealedById != null "> and nst.notice_sealed_by_id = #{noticeSealedById}</if>
+        </where>
+        order by nst.stamp_id desc
+    </select>
+
+    <select id="selectStampInfoByStampId" parameterType="Long" resultMap="StampInfoResult">
+        <include refid="selectStampInfoVo"/>
+        where nst.stamp_id = #{stampId}
+    </select>
+
+    <insert id="insertStampInfo" parameterType="StampInfo" useGeneratedKeys="true" keyProperty="stampId">
+        insert into stamp_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="creator != null">creator,</if>
+            <if test="state != null">state,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="del != null">del,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="noticeCreaterId != null">notice_creater_id,</if>
+            <if test="noticeSealedById != null">notice_sealed_by_id,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="creator != null">#{creator},</if>
+            <if test="state != null">#{state},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="del != null">#{del},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="noticeCreaterId != null">#{noticeCreaterId},</if>
+            <if test="noticeSealedById != null">#{noticeSealedById},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateStampInfo" parameterType="StampInfo">
+        update stamp_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="del != null">del = #{del},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="noticeCreaterId != null">notice_creater_id = #{noticeCreaterId},</if>
+            <if test="noticeSealedById != null">notice_sealed_by_id = #{noticeSealedById},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where stamp_id = #{stampId}
+    </update>
+
+    <delete id="deleteStampInfoByStampId" parameterType="Long">
+        delete from stamp_info where stamp_id = #{stampId}
+    </delete>
+
+    <delete id="deleteStampInfoByStampIds" parameterType="String">
+        delete from stamp_info where stamp_id in
+        <foreach item="stampId" collection="array" open="(" separator="," close=")">
+            #{stampId}
+        </foreach>
+    </delete>
+</mapper>

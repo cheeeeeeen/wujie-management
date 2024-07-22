@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wujie.mapper.NCaseMapper">
+    
+    <resultMap type="NCase" id="NCaseResult">
+        <result property="caseId"    column="case_id"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="clientName"    column="client_name"    />
+        <result property="clientId"    column="client_id"    />
+        <result property="type"    column="type"    />
+        <result property="role"    column="role"    />
+        <result property="stage"    column="stage"    />
+        <result property="caseNumber"    column="case_number"    />
+        <result property="caseCore"    column="case_core"    />
+        <result property="reward"    column="reward"    />
+        <result property="caseOffice"    column="case_office"    />
+        <result property="del"    column="del"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="crimeName"    column="crime_name"    />
+        <result property="defendant"    column="defendant"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <association property="nCustomer" javaType="nCustomer" resultMap="com.ruoyi.wujie.mapper.NCustomerMapper.NCustomerResult"></association>
+    </resultMap>
+
+    <sql id="selectNCaseVo">
+        select nca.*, ncs.* from n_case nca left join n_customer ncs on nca.customer_id = ncs.id
+    </sql>
+
+    <select id="selectNCaseList" parameterType="NCase" resultMap="NCaseResult">
+        <include refid="selectNCaseVo"/>
+        <where>  
+            <if test="customerId != null "> and nca.customer_id = #{customerId}</if>
+            <if test="nCustomer != null and nCustomer.name != null and nCustomer.name != '' ">
+                and ncs.name = #{nCustomer.name}
+            </if>
+            <if test="clientName != null  and clientName != ''"> and nca.client_name like concat('%', #{clientName}, '%')</if>
+            <if test="clientId != null  and clientId != ''"> and nca.client_id = #{clientId}</if>
+            <if test="type != null  and type != ''"> and nca.type = #{type}</if>
+            <if test="role != null  and role != ''"> and nca.role = #{role}</if>
+            <if test="stage != null  and stage != ''"> and nca.stage = #{stage}</if>
+            <if test="caseNumber != null  and caseNumber != ''"> and nca.case_number = #{caseNumber}</if>
+            <if test="caseCore != null  and caseCore != ''"> and nca.case_core = #{caseCore}</if>
+            <if test="reward != null  and reward != ''"> and nca.reward = #{reward}</if>
+            <if test="caseOffice != null  and caseOffice != ''"> and nca.case_office = #{caseOffice}</if>
+            <if test="del != null  and del != ''"> and nca.del = #{del}</if>
+            <if test="startTime != null "> and nca.start_time = #{startTime}</if>
+            <if test="endTime != null "> and nca.end_time = #{endTime}</if>
+            <if test="crimeName != null  and crimeName != ''"> and nca.crime_name like concat('%', #{crimeName}, '%')</if>
+            <if test="defendant != null  and defendant != ''"> and nca.defendant = #{defendant}</if>
+            <if test="createBy != null and createBy != ''"> and nca.create_by = #{createBy}</if>
+        </where>
+        order by nca.case_id desc
+    </select>
+    
+    <select id="selectNCaseByCaseId" parameterType="Long" resultMap="NCaseResult">
+        <include refid="selectNCaseVo"/>
+        where nca.case_id = #{caseId}
+    </select>
+        
+    <insert id="insertNCase" parameterType="NCase" useGeneratedKeys="true" keyProperty="caseId">
+        insert into n_case
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">customer_id,</if>
+            <if test="clientName != null">client_name,</if>
+            <if test="clientId != null">client_id,</if>
+            <if test="type != null">type,</if>
+            <if test="role != null">role,</if>
+            <if test="stage != null">stage,</if>
+            <if test="caseNumber != null">case_number,</if>
+            <if test="caseCore != null">case_core,</if>
+            <if test="reward != null">reward,</if>
+            <if test="caseOffice != null">case_office,</if>
+            <if test="del != null">del,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="crimeName != null">crime_name,</if>
+            <if test="defendant != null">defendant,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">#{customerId},</if>
+            <if test="clientName != null">#{clientName},</if>
+            <if test="clientId != null">#{clientId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="role != null">#{role},</if>
+            <if test="stage != null">#{stage},</if>
+            <if test="caseNumber != null">#{caseNumber},</if>
+            <if test="caseCore != null">#{caseCore},</if>
+            <if test="reward != null">#{reward},</if>
+            <if test="caseOffice != null">#{caseOffice},</if>
+            <if test="del != null">#{del},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="crimeName != null">#{crimeName},</if>
+            <if test="defendant != null">#{defendant},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateNCase" parameterType="NCase">
+        update n_case
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="clientName != null">client_name = #{clientName},</if>
+            <if test="clientId != null">client_id = #{clientId},</if>
+            <if test="type != null">type = #{type},</if>
+            role = #{role},
+            stage = #{stage},
+            case_number = #{caseNumber},
+            case_core = #{caseCore},
+            reward = #{reward},
+            case_office = #{caseOffice},
+            del = #{del},
+            start_time = #{startTime},
+            end_time = #{endTime},
+            crime_name = #{crimeName},
+            defendant = #{defendant},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+        </trim>
+        where case_id = #{caseId}
+    </update>
+
+    <delete id="deleteNCaseByCaseId" parameterType="Long">
+        delete from n_case where case_id = #{caseId}
+    </delete>
+
+    <delete id="deleteNCaseByCaseIds" parameterType="String">
+        delete from n_case where case_id in 
+        <foreach item="caseId" collection="array" open="(" separator="," close=")">
+            #{caseId}
+        </foreach>
+    </delete>
+</mapper>
